@@ -1,6 +1,6 @@
-# docker-template
+# ghr
 
-[![CircleCI](https://circleci.com/gh/trussworks/docker-template/tree/master.svg?style=svg)](https://circleci.com/gh/trussworks/docker-template/tree/master)
+[![CircleCI](https://circleci.com/gh/trussworks/ghr/tree/master.svg?style=svg)](https://circleci.com/gh/trussworks/ghr/tree/master)
 
 This repository is meant to serve as both an example and a template for new docker images with our general format.
 
@@ -25,7 +25,7 @@ brew install pre-commit docker
 Below is a quick summary of what needs to be done to create a new docker image. Steps 3-5 are expanded on.
 
 1. Clone this repo.
-2. Replace every instance of `trussworks/docker-template` with the name of your new image.
+2. Replace every instance of `trussworks/ghr` with the name of your new image.
 3. Modify Dockerfile to create your own image.
 4. Modify `scripts/test` to reflect the changes you made in Dockerfile.
 5. Register the image in Docker Hub.

@@ -1,6 +1,6 @@
 
 # CircleCI docker image to run within
-FROM cimg/base:stable
+FROM cimg/python:3.8.5
 # Base image uses "circleci", to avoid using `sudo` run as root user
 USER root
 
@@ -15,17 +15,16 @@ RUN set -ex && cd ~ \
     && chown root:root /usr/local/bin/shellcheck \
     && rm -vrf shellcheck-v${SHELLCHECK_VERSION} shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 
-# install circleci cli
-ARG CIRCLECI_CLI_VERSION=0.1.9321
-ARG CIRCLECI_CLI_SHA256SUM=26a4b0c56c1e0ad32ee42368ee098dbe8e917006cbd45c36a5cfc079f6888d3b
+# install ghr
+ARG GHR_VERSION=0.13.0
+ARG GHR_SHA256SUM=c428627270ae26e206cb526cb8c7bdfba475dd278f6691ddaf863355adadfa13
 RUN set -ex && cd ~ \
-    && curl -sSLO https://github.com/CircleCI-Public/circleci-cli/releases/download/v${CIRCLECI_CLI_VERSION}/circleci-cli_${CIRCLECI_CLI_VERSION}_linux_amd64.tar.gz \
-    && [ $(sha256sum circleci-cli_${CIRCLECI_CLI_VERSION}_linux_amd64.tar.gz | cut -f1 -d' ') = ${CIRCLECI_CLI_SHA256SUM} ] \
-    && tar xzf circleci-cli_${CIRCLECI_CLI_VERSION}_linux_amd64.tar.gz \
-    && mv circleci-cli_${CIRCLECI_CLI_VERSION}_linux_amd64/circleci /usr/local/bin \
-    && chmod 755 /usr/local/bin/circleci \
-    && chown root:root /usr/local/bin/circleci \
-    && rm -vrf circleci-cli_${CIRCLECI_CLI_VERSION}_linux_amd64 circleci-cli_${CIRCLECI_CLI_VERSION}_linux_amd64.tar.gz
+    && curl -sSLO https://github.com/tcnksm/ghr/releases/download/v${GHR_VERSION}/ghr_v${GHR_VERSION}_linux_amd64.tar.gz \
+    && [ $(sha256sum ghr_v${GHR_VERSION}_linux_amd64.tar.gz | cut -f1 -d' ') = ${GHR_SHA256SUM} ] \
+    && tar xzf ghr_v${GHR_VERSION}_linux_amd64.tar.gz \
+    && mv ghr_v${GHR_VERSION}_linux_amd64/ghr /usr/local/bin \
+    && rm -rf ghr_v${GHR_VERSION}_linux_amd64.tar.gz \
+    && rm -rf ghr_v${GHR_VERSION}_linux_amd64
 
 # install awscliv2, disable default pager (less)
 ENV AWS_PAGER=""
